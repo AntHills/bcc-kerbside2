@@ -1,31 +1,31 @@
 import { useState, useEffect } from "react";
 import Table from "./components/Table.jsx";
+import Header from "./components/Header.jsx";
+import dayjs from "dayjs";
 
 function App() {
-  const [kerbsideData, setKerbsideData] = useState([]);
+  const [kerbsideData, setKerbsideData] = useState([
+    {
+      id: 1,
+      kerbsideWeek: "",
+      suburb: "",
+      updated: "",
+    },
+  ]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/kerbside")
+    fetch("/api/kerbside")
       .then((res) => res.json())
       .then((data) => setKerbsideData(data));
-
-    console.log(kerbsideData);
   }, []);
 
-  const tableRows = kerbsideData.map((k) => {
-    return (
-      <tr>
-        <th>{k.suburb}</th>
-        <th>{k.kerbsideWeek}</th>
-        <th>{k.updated}</th>
-      </tr>
-    );
-  });
-
   return (
-    <>
+    <div className="app-container">
+      <Header
+        lastUpdated={dayjs(kerbsideData[0].updated).format("DD MMMM YYYY")}
+      />
       <Table suburbs={kerbsideData} />
-    </>
+    </div>
   );
 }
 

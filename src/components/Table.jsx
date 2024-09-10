@@ -1,4 +1,5 @@
 import { useState } from "react";
+import dayjs from "dayjs";
 
 function Table(props) {
   const [search, setSearch] = useState("");
@@ -15,8 +16,7 @@ function Table(props) {
       return (
         <tr>
           <td>{k.suburb}</td>
-          <td>{k.kerbsideWeek}</td>
-          <td>{k.updated}</td>
+          <td>{dayjs(k.kerbsideWeek).format("DD MMMM YYYY")}</td>
         </tr>
       );
     } else {
@@ -36,8 +36,7 @@ function Table(props) {
         <thead>
           <tr>
             <th>Suburb</th>
-            <th>Collection week starts</th>
-            <th>Date updated</th>
+            <th>Collection week</th>
           </tr>
         </thead>
         <tbody>{tableRows}</tbody>
