@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Table from "./components/Table.jsx";
 
 function App() {
   const [kerbsideData, setKerbsideData] = useState([]);
@@ -23,7 +24,7 @@ function App() {
 
   return (
     <>
-      <table>{tableRows}</table>
+      <Table suburbs={kerbsideData} />
     </>
   );
 }
