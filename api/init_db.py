@@ -7,11 +7,7 @@ with open('schema.sql') as f:
 
 cur = connection.cursor()
 
-cur.execute("INSERT INTO kerbside (suburb, kerbside_week) VALUES (?, ?)",
-            ('Acacia Ridge', '2024/08/26'))
-
-cur.execute("INSERT INTO kerbside (suburb, kerbside_week) VALUES (?, ?)",
-            ('Albion', '2024/10/21'))
+cur.execute("INSERT INTO datefetches (updated) VALUES(CURRENT_TIMESTAMP)")
 
 connection.commit()
 connection.close()

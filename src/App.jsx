@@ -20,6 +20,10 @@ function App() {
       .then((data) => setKerbsideData(data));
   }, []);
 
+  useEffect(() => {
+    fetch("/api/pull-data");
+  }, []);
+
   return (
     <>
       <Header />

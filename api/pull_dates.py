@@ -193,6 +193,11 @@ suburbs = ["Acacia Ridge",
 connection = sqlite3.connect('database.db')
 cur = connection.cursor()
 
+# Last run 
+last_run_sql = "UPDATE datefetches SET updated = CURRENT_TIMESTAMP WHERE id = 1"
+cur.execute(last_run_sql)
+connection.commit()
+
 for suburb in suburbs:
   url = 'https://www.brisbane.qld.gov.au/clean-and-green/rubbish-tips-and-bins/rubbish-collections/kerbside-large-item-collection-service'
 
@@ -254,8 +259,12 @@ for suburb in suburbs:
     sql = "INSERT OR REPLACE INTO kerbside (id, updated, suburb, kerbside_week) VALUES ((SELECT id FROM kerbside WHERE suburb = '{s}'),CURRENT_TIMESTAMP,'{s}','{d}')".format(s=suburb, d=formatted_date)
     print(sql)
     cur.execute(sql)
+    connection.commit()
   else:
     print(response.text)
+
+
+
 
 connection.commit()
 connection.close()

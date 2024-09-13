@@ -2,6 +2,9 @@ import time
 import sqlite3
 from flask import Flask, jsonify
 from flask_cors import CORS
+import subprocess
+from datetime import datetime, timedelta, timezone
+import os.path
 
 app = Flask(__name__)
 cors = CORS(app, origins='*')
@@ -31,6 +34,34 @@ def get_kerbside_data():
             'kerbsideWeek': row[3]
         } for row in rows
     ]
-  conn.close()
+  
   return jsonify(data)
+
+@app.route('/api/pull-data', methods=['GET'])
+def pull_dates():
+  current_time = datetime.utcnow()
+  print(current_time)
+
+  conn = get_db_connection()
+  cur = conn.cursor()
+  cur.execute('SELECT updated FROM datefetches')
+  row = cur.fetchall()
+  response_date = row[0][0]
+
+  run_time = datetime.strptime(response_date, "%Y-%m-%d %H:%M:%S")
+
+  difference = current_time - run_time
+  print(difference)
+  if difference >= timedelta(minutes=5):
+    if os.path.isfile("venv/Scripts/python.exe"):
+      subprocess.Popen(['venv/Scripts/python', 'pull_dates.py'])
+    elif os.path.isfile("venv/bin/python3"):
+      subprocess.Popen(['venv/bin/python3', 'pull_dates.py'])
+    conn.close()
+    return jsonify({"message": "Data pull started"}) 
+  else: 
+    conn.close()
+    return jsonify({"message": "Data fetched recently"}) 
+
+
   
