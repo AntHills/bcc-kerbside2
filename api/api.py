@@ -52,7 +52,7 @@ def pull_dates():
 
   difference = current_time - run_time
   print(difference)
-  if difference >= timedelta(minutes=5):
+  if difference >= timedelta(hours=24):
     if os.path.isfile("venv/Scripts/python.exe"):
       subprocess.Popen(['venv/Scripts/python', 'pull_dates.py'])
     elif os.path.isfile("venv/bin/python3"):
