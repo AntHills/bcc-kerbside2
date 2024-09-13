@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Table from "./components/Table.jsx";
 import Header from "./components/Header.jsx";
+import Footer from "./components/Footer.jsx";
 import dayjs from "dayjs";
 
 function App() {
@@ -20,13 +21,16 @@ function App() {
   }, []);
 
   return (
-    <div className="app-container">
+    <>
       <Header />
-      <Table
-        suburbs={kerbsideData}
-        lastUpdated={dayjs(kerbsideData[0].updated).format("DD MMMM YYYY")}
-      />
-    </div>
+      <div className="app-container">
+        <Table
+          suburbs={kerbsideData}
+          lastUpdated={dayjs(kerbsideData[0].updated).format("DD MMMM YYYY")}
+        />
+      </div>
+      <Footer />
+    </>
   );
 }
 
