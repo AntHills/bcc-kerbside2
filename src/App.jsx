@@ -21,10 +21,11 @@ function App() {
 
   return (
     <div className="app-container">
-      <Header
+      <Header />
+      <Table
+        suburbs={kerbsideData}
         lastUpdated={dayjs(kerbsideData[0].updated).format("DD MMMM YYYY")}
       />
-      <Table suburbs={kerbsideData} />
     </div>
   );
 }

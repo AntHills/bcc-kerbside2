@@ -5,7 +5,6 @@ function Header(props) {
       <h2>
         Use this tool to find the kerbside collection week for Brisbane suburbs.
       </h2>
-      <h3>Last checked: {props.lastUpdated}</h3>
     </header>
   );
 }

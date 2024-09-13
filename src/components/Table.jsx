@@ -3,6 +3,7 @@ import dayjs from "dayjs";
 import TableRow from "./TableRow.jsx";
 import sortIcon from "../assets/sort.svg";
 import trailerSVG from "../assets/trailer.svg";
+import whitegoodsSVG from "../assets/white-goods2.svg";
 
 function Table(props) {
   const [search, setSearch] = useState("");
@@ -82,13 +83,21 @@ function Table(props) {
 
   return (
     <div className="table-container">
-      <input
-        className="search-input"
-        type="text"
-        placeholder="search..."
-        onChange={handleSearch}
-        value={search}
+      <img
+        src={whitegoodsSVG}
+        alt="image of white goods"
+        className="white-goods-image"
       />
+      <div className="table-search-container">
+        <h3>Last checked: {props.lastUpdated}</h3>
+        <input
+          className="search-input"
+          type="text"
+          placeholder="search..."
+          onChange={handleSearch}
+          value={search}
+        />
+      </div>
       <table className="suburb-table">
         <thead className="table-header">
           <tr>
