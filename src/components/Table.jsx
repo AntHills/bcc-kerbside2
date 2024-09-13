@@ -2,6 +2,7 @@ import { useState } from "react";
 import dayjs from "dayjs";
 import TableRow from "./TableRow.jsx";
 import sortIcon from "../assets/sort.svg";
+import trailerSVG from "../assets/trailer.svg";
 
 function Table(props) {
   const [search, setSearch] = useState("");
@@ -69,13 +70,13 @@ function Table(props) {
       <table className="suburb-table">
         <thead className="table-header">
           <tr>
-            <th onClick={handleSort} id="suburb">
+            <th onClick={handleSort} id="suburb" className="left">
               <div className="heading-content">
                 <h4 className="heading-text">Suburb</h4>
                 <img src={sortIcon} className="sort-icon" />
               </div>
             </th>
-            <th onClick={handleSort} id="kerbsideWeek">
+            <th onClick={handleSort} id="kerbsideWeek" className="right">
               <div className="heading-content">
                 <h4 className="heading-text">Collection week</h4>
                 <img src={sortIcon} className="sort-icon" />
@@ -85,6 +86,7 @@ function Table(props) {
         </thead>
         <tbody>{tableRows}</tbody>
       </table>
+      <img src={trailerSVG} className="trailer-image" />
     </div>
   );
 }

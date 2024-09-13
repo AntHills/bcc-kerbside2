@@ -16,7 +16,7 @@ body {
 }
 
 .table-container {
-  max-width: 1000px;
+  max-width: 750px;
 }
 
 .search-input {
@@ -28,13 +28,12 @@ body {
 
 .suburb-table {
   border-collapse: collapse;
-  min-width: 400px;
+  width: 100%;
 }
 
 .suburb-table thead tr {
   background-color: rgb(19, 88, 154);
   color: white;
-  text-align: left;
 }
 
 .suburb-table th,
@@ -42,8 +41,17 @@ body {
   padding: 12px 15px;
 }
 
+.suburb-table .left {
+  text-align: center;
+}
+
+.suburb-table .right {
+  text-align: center;
+}
+
 .suburb-table tbody tr {
   border-bottom: 1px solid #dddddd;
+  font-size: 1.2rem;
 }
 
 .suburb-table tbody tr:nth-of-type(even) {
@@ -62,7 +70,7 @@ body {
 
 .heading-content {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 }
 
@@ -74,4 +82,9 @@ body {
   width: 22px;
   justify-self: center;
   align-self: center;
+  margin-left: 10px;
+}
+
+.trailer-image {
+  width: 100%;
 }

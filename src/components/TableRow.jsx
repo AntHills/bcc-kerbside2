@@ -1,8 +1,8 @@
 function TableRow(props) {
   return (
     <tr>
-      <td>{props.suburb}</td>
-      <td>{props.date}</td>
+      <td className="left">{props.suburb}</td>
+      <td className="right">{props.date}</td>
     </tr>
   );
 }
