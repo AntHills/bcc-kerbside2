@@ -10,6 +10,7 @@ function Table(props) {
     sortType: "kerbsideWeek",
     sortAsc: true,
   });
+  const currentDate = dayjs();
 
   function handleSearch(event) {
     const { value } = event.target;
@@ -26,14 +27,30 @@ function Table(props) {
     });
   }
 
+  const isDateElapsed = (dateString) => {
+    const date = dayjs(dateString);
+    return currentDate.diff(date, "day") >= 7;
+  };
+
   //Sort table based on sort state
-  const suburbArray = props.suburbs;
+  const suburbArray = props.suburbs.map((suburb) => {
+    return {
+      ...suburb,
+      kerbsideWeek: isDateElapsed(suburb.kerbsideWeek)
+        ? "Date elapsed"
+        : suburb.kerbsideWeek,
+    };
+  });
 
   if (currentSort.sortType === "kerbsideWeek") {
     suburbArray.sort((a, b) => {
       if (currentSort.sortAsc) {
+        if (a.kerbsideWeek === "Date elapsed") return 1;
+        if (b.kerbsideWeek === "Date elapsed") return -1;
         return new Date(a.kerbsideWeek) - new Date(b.kerbsideWeek);
       } else {
+        if (a.kerbsideWeek === "Date elapsed") return -1;
+        if (b.kerbsideWeek === "Date elapsed") return 1;
         return new Date(b.kerbsideWeek) - new Date(a.kerbsideWeek);
       }
     });
@@ -49,7 +66,12 @@ function Table(props) {
 
   //Create table row elements
   const tableRows = suburbArray.map((k) => {
-    const formattedDate = dayjs(k.kerbsideWeek).format("DD MMMM YYYY");
+    let formattedDate = "";
+    if (k.kerbsideWeek != "Date elapsed") {
+      formattedDate = dayjs(k.kerbsideWeek).format("DD MMMM YYYY");
+    } else {
+      formattedDate = k.kerbsideWeek;
+    }
 
     if (k.suburb.toLowerCase().includes(search.toLowerCase())) {
       return <TableRow key={k.id} suburb={k.suburb} date={formattedDate} />;

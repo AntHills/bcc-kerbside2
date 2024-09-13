@@ -1,5 +1,7 @@
+html,
 body {
   font-family: Karla, sans-serif;
+  margin: 0;
 }
 
 .app-container {
@@ -7,6 +9,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin: 10px;
 }
 
 .header-container {
