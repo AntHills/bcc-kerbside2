@@ -104,20 +104,24 @@ function Table(props) {
             <th onClick={handleSort} id="suburb" className="left">
               <div className="heading-content">
                 <h4 className="heading-text">Suburb</h4>
-                <img src={sortIcon} className="sort-icon" />
+                <img src={sortIcon} className="sort-icon" alt="sort icon" />
               </div>
             </th>
             <th onClick={handleSort} id="kerbsideWeek" className="right">
               <div className="heading-content">
                 <h4 className="heading-text">Collection week</h4>
-                <img src={sortIcon} className="sort-icon" />
+                <img src={sortIcon} className="sort-icon" alt="sort icon" />
               </div>
             </th>
           </tr>
         </thead>
         <tbody>{tableRows}</tbody>
       </table>
-      <img src={trailerSVG} className="trailer-image" />
+      <img
+        src={trailerSVG}
+        className="trailer-image"
+        alt="image of back of trailer"
+      />
     </div>
   );
 }
