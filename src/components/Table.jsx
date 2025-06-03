@@ -8,7 +8,7 @@ import whitegoodsSVG from "../assets/white-goods2.svg";
 function Table(props) {
   const [search, setSearch] = useState("");
   const [currentSort, setCurrentSort] = useState({
-    sortType: "kerbsideWeek",
+    sortType: "date_of_collection",
     sortAsc: true,
   });
   const currentDate = dayjs();
@@ -37,22 +37,22 @@ function Table(props) {
   const suburbArray = props.suburbs.map((suburb) => {
     return {
       ...suburb,
-      kerbsideWeek: isDateElapsed(suburb.kerbsideWeek)
+      date_of_collection: isDateElapsed(suburb.date_of_collection)
         ? "Date elapsed"
-        : suburb.kerbsideWeek,
+        : suburb.date_of_collection,
     };
   });
 
-  if (currentSort.sortType === "kerbsideWeek") {
+  if (currentSort.sortType === "date_of_collection") {
     suburbArray.sort((a, b) => {
       if (currentSort.sortAsc) {
-        if (a.kerbsideWeek === "Date elapsed") return 1;
-        if (b.kerbsideWeek === "Date elapsed") return -1;
-        return new Date(a.kerbsideWeek) - new Date(b.kerbsideWeek);
+        if (a.date_of_collection === "Date elapsed") return 1;
+        if (b.date_of_collection === "Date elapsed") return -1;
+        return new Date(a.date_of_collection) - new Date(b.date_of_collection);
       } else {
-        if (a.kerbsideWeek === "Date elapsed") return -1;
-        if (b.kerbsideWeek === "Date elapsed") return 1;
-        return new Date(b.kerbsideWeek) - new Date(a.kerbsideWeek);
+        if (a.date_of_collection === "Date elapsed") return -1;
+        if (b.date_of_collection === "Date elapsed") return 1;
+        return new Date(b.date_of_collection) - new Date(a.date_of_collection);
       }
     });
   } else if (currentSort.sortType === "suburb") {
@@ -68,14 +68,14 @@ function Table(props) {
   //Create table row elements
   const tableRows = suburbArray.map((k) => {
     let formattedDate = "";
-    if (k.kerbsideWeek != "Date elapsed") {
-      formattedDate = dayjs(k.kerbsideWeek).format("DD MMMM YYYY");
+    if (k.date_of_collection != "Date elapsed") {
+      formattedDate = dayjs(k.date_of_collection).format("DD MMMM YYYY");
     } else {
-      formattedDate = k.kerbsideWeek;
+      formattedDate = k.date_of_collection;
     }
 
     if (k.suburb.toLowerCase().includes(search.toLowerCase())) {
-      return <TableRow key={k.id} suburb={k.suburb} date={formattedDate} />;
+      return <TableRow key={k.surburb} suburb={k.suburb} date={formattedDate} />;
     } else {
       return;
     }
@@ -107,7 +107,7 @@ function Table(props) {
                 <img src={sortIcon} className="sort-icon" alt="sort icon" />
               </div>
             </th>
-            <th onClick={handleSort} id="kerbsideWeek" className="right">
+            <th onClick={handleSort} id="date_of_collection" className="right">
               <div className="heading-content">
                 <h4 className="heading-text">Collection week</h4>
                 <img src={sortIcon} className="sort-icon" alt="sort icon" />

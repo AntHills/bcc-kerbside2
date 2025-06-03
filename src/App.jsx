@@ -7,17 +7,15 @@ import dayjs from "dayjs";
 function App() {
   const [kerbsideData, setKerbsideData] = useState([
     {
-      id: 1,
-      kerbsideWeek: "",
       suburb: "",
-      updated: "",
+      date_of_collection: "",
     },
   ]);
 
   useEffect(() => {
-    fetch("/api/kerbside")
+    fetch("https://data.brisbane.qld.gov.au/api/explore/v2.1/catalog/datasets/kerbside-large-item-collection-schedule/records")
       .then((res) => res.json())
-      .then((data) => setKerbsideData(data));
+      .then((data) => setKerbsideData(data.results));
   }, []);
 
   return (
