@@ -13,9 +13,33 @@ function App() {
   ]);
 
   useEffect(() => {
-    fetch("https://data.brisbane.qld.gov.au/api/explore/v2.1/catalog/datasets/kerbside-large-item-collection-schedule/records")
-      .then((res) => res.json())
-      .then((data) => setKerbsideData(data.results));
+    const fetchAllData = async () => {
+      const limit = 100;
+      let offset = 0;
+      let allResults = [];
+      let keepFetching = true;
+
+      try {
+        while (keepFetching) {
+          const url = `https://data.brisbane.qld.gov.au/api/explore/v2.1/catalog/datasets/kerbside-large-item-collection-schedule/records?limit=${limit}&offset=${offset}`;
+          const res = await fetch(url);
+          const data = await res.json();
+
+          if (data.results.length > 0) {
+            allResults = [...allResults, ...data.results];
+            offset += limit;
+          } else {
+            keepFetching = false;
+          }
+        }
+
+        setKerbsideData(allResults);
+      } catch (err) {
+        console.error('Failed to fetch kerbside data:', err);
+      }
+    };
+
+    fetchAllData();
   }, []);
 
   return (

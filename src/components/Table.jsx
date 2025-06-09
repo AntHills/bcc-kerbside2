@@ -69,7 +69,9 @@ function Table(props) {
   const tableRows = suburbArray.map((k) => {
     let formattedDate = "";
     if (k.date_of_collection != "Date elapsed") {
-      formattedDate = dayjs(k.date_of_collection).format("DD MMMM YYYY");
+      if (dayjs(k.date_of_collection).isValid()) {
+        formattedDate = dayjs(k.date_of_collection).format("DD MMMM YYYY");
+      }
     } else {
       formattedDate = k.date_of_collection;
     }
