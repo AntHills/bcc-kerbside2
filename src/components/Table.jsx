@@ -12,6 +12,8 @@ function Table(props) {
     sortAsc: true,
   });
   const currentDate = dayjs();
+  const isLoading = props.loading;
+  console.log("isLoading:", isLoading);
 
   function handleSearch(event) {
     const { value } = event.target;
@@ -31,6 +33,26 @@ function Table(props) {
   const isDateElapsed = (dateString) => {
     const date = dayjs(dateString);
     return currentDate.diff(date, "day") >= 7;
+  };
+
+  const renderPlaceholderRows = () => {
+    const placeholderRows = Array.from({ length: 10 }).map((_, idx) => (
+      <tr key={`placeholder-${idx}`}>
+        <td className="left placeholder-glow">
+          <div
+            className="placeholder"
+            style={{ width: "100%", height: "1.2rem", display: "block" }}
+          ></div>
+        </td>
+        <td className="right placeholder-glow">
+          <div
+            className="placeholder"
+            style={{ width: "100%", height: "1.2rem", display: "block" }}
+          ></div>
+        </td>
+      </tr>
+    ));
+    return placeholderRows;
   };
 
   //Sort table based on sort state
@@ -77,7 +99,7 @@ function Table(props) {
     }
 
     if (k.suburb.toLowerCase().includes(search.toLowerCase())) {
-      return <TableRow key={k.surburb} suburb={k.suburb} date={formattedDate} />;
+      return <TableRow key={k.suburb} suburb={k.suburb} date={formattedDate} />;
     } else {
       return;
     }
@@ -117,7 +139,7 @@ function Table(props) {
             </th>
           </tr>
         </thead>
-        <tbody>{tableRows}</tbody>
+        <tbody>{isLoading ? renderPlaceholderRows() : tableRows}</tbody>
       </table>
       <img
         src={trailerSVG}

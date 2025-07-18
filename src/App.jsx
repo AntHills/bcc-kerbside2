@@ -11,6 +11,7 @@ function App() {
       date_of_collection: "",
     },
   ]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchAllData = async () => {
@@ -30,6 +31,7 @@ function App() {
             offset += limit;
           } else {
             keepFetching = false;
+            setLoading(false);
           }
         }
 
@@ -49,6 +51,7 @@ function App() {
         <Table
           suburbs={kerbsideData}
           lastUpdated={dayjs(kerbsideData[0].updated).format("DD MMMM YYYY")}
+          loading={loading}
         />
       </div>
       <Footer />
