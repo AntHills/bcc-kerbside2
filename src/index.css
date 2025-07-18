@@ -13,12 +13,14 @@ body {
   align-items: center;
   margin: 0px;
   height: 100%;
+  background-color: #f0e8d8;
   flex: 1;
 }
 
 #root {
   display: flex;
   flex-direction: column;
+  background-color: #f0e8d8;
   min-height: 100vh;
 }
 
